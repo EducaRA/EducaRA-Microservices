@@ -3,6 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\API\
+{
+   DisciplinaController,
+   Objeto3dController,
+   AulaController
+};
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
