@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('objeto3ds', function (Blueprint $table) {
+        Schema::create('objetos_3d', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('objeto3ds');
+        Schema::dropIfExists('objetos_3d');
     }
 };
