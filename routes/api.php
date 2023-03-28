@@ -14,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('login', function (Request $request) {
+    $credentials = $request->only(['email', 'password']);
+    
+    if(!$token = auth()->attempt($credentials)){
+        abort(401, "Unauthorized");
+    }
+
+    return response()->json([
+        'data' => [
+            'token' => $token,
+            'type' => 'bearer',
+            'expires' => auth()->factory()->getTTL() * 60
+        ]
+    ]);
+
+});
+
