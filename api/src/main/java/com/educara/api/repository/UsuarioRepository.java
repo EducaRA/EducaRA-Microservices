@@ -1,5 +1,6 @@
-package com.educara.api.domain.usuario;
+package com.educara.api.repository;
 
+import com.educara.api.model.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

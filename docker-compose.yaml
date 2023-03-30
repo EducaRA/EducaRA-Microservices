@@ -15,19 +15,25 @@ services:
     container_name: database
     image: postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: educara-db
     volumes:
       - ./database/pgdata:/var/lib/postgresql/data
     ports:
       - "8002:5432"
   # Serviço do Spring Boot
+  # O host 'database' se refere ao nome do servico do banco de dados, descrito acima
   api:
     container_name: api
     build:
       context: ./api
       dockerfile: Dockerfile
+    environment:
+          - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/${DATABASE_NAME}
+          - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
+          - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+          - JWT_SECRET=${JWT_SECRET}
     ports:
       - "8001:8080"
     depends_on:

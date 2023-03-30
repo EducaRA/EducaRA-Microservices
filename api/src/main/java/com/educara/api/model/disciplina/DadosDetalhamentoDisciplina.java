@@ -1,4 +1,4 @@
-package com.educara.api.domain.disciplina;
+package com.educara.api.model.disciplina;
 
 
 public record DadosDetalhamentoDisciplina(Long id, String nome, String sigla, String imagem) {

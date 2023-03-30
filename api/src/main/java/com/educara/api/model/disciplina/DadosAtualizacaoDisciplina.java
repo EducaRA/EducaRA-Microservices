@@ -1,4 +1,4 @@
-package com.educara.api.domain.disciplina;
+package com.educara.api.model.disciplina;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

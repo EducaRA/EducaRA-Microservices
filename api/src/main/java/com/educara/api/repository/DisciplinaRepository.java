@@ -1,5 +1,6 @@
-package com.educara.api.domain.disciplina;
+package com.educara.api.repository;
 
+import com.educara.api.model.disciplina.Disciplina;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

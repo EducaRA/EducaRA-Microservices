@@ -1,7 +1,7 @@
 package com.educara.api.controller;
 
-import com.educara.api.domain.usuario.DadosAutenticacao;
-import com.educara.api.domain.usuario.Usuario;
+import com.educara.api.model.usuario.DadosAutenticacao;
+import com.educara.api.model.usuario.Usuario;
 import com.educara.api.infra.security.DadosTokenJWT;
 import com.educara.api.infra.security.TokenService;
 import jakarta.validation.Valid;
