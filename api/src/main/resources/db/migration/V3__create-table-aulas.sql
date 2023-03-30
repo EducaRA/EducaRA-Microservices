@@ -6,6 +6,7 @@ CREATE TABLE aulas (
     codigo UUID,
     fk_disciplina_id BIGINT,
     fk_usuario_id BIGINT,
+    ativo BOOLEAN,
     FOREIGN KEY (fk_disciplina_id) REFERENCES disciplinas (id) ON DELETE CASCADE,
     FOREIGN KEY (fk_usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
 );

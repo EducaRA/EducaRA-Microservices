@@ -22,7 +22,7 @@ public class Disciplina {
     private Boolean ativo;
 
     public Disciplina(DadosCadastroDisciplina dados) {
-        this.ativo = true;
+        this.ativo = Boolean.TRUE;
         this.nome = dados.nome();
         this.sigla = dados.sigla();
         this.imagem = dados.imagem();

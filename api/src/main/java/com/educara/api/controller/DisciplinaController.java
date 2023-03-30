@@ -30,33 +30,33 @@ public class DisciplinaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemDisciplina>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemDisciplina::new);
-        return ResponseEntity.ok(page);
+    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+            var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemDisciplina::new);
+            return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoDisciplina dados) {
-        var medico = repository.getReferenceById(dados.id());
-        medico.atualizarInformacoes(dados);
+        var disciplina = repository.getReferenceById(dados.id());
+        disciplina.atualizarInformacoes(dados);
 
-        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(medico));
+        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(disciplina));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
-        var medico = repository.getReferenceById(id);
-        medico.excluir();
+        var disciplina = repository.getReferenceById(id);
+        disciplina.excluir();
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var medico = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(medico));
+        var disciplina = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(disciplina));
     }
 
 

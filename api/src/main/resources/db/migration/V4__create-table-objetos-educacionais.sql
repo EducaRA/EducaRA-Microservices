@@ -8,6 +8,7 @@ CREATE TABLE objetos_educacionais (
     path VARCHAR(200),
     nome VARCHAR(30),
     escala INTEGER,
+    ativo BOOLEAN,
     fk_aula_id BIGINT,
     FOREIGN KEY (fk_aula_id) REFERENCES aulas (id) ON DELETE RESTRICT
 );
