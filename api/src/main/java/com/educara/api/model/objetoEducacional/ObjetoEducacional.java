@@ -23,10 +23,13 @@ public class ObjetoEducacional {
     private String descricao;
     private String imagem;
     private BigDecimal escala;
+    @Column(name = "filehash_md5")
     private String filehashMd5;
     private String path;
+    @Column(name = "size_megabyte")
     private Integer size;
     private String extension;
+    private Boolean ativo;
 
     @ManyToOne
     @JoinColumn(name = "fk_aula_id", referencedColumnName = "id")
