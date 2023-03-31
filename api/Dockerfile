@@ -7,6 +7,6 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
-RUN ./mvnw install -DskipTests
+RUN ./mvnw clean install -DskipTests
 
 ENTRYPOINT ["java","-jar","target/app.jar"]
