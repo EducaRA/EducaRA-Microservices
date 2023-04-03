@@ -1,4 +1,4 @@
-package com.educara.api.repository;
+package com.educara.api.model.usuario;
 
 import com.educara.api.model.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;

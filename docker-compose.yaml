@@ -31,7 +31,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     environment:
-          - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/${DATABASE_NAME}
+          - SPRING_DATASOURCE_URL=${DATABASE_HOST}/${DATABASE_NAME}
           - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
           - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
           - JWT_SECRET=${JWT_SECRET}

@@ -1,4 +1,4 @@
-package com.educara.api.repository;
+package com.educara.api.model.disciplina;
 
 import com.educara.api.model.disciplina.Disciplina;
 import org.springframework.data.domain.Page;

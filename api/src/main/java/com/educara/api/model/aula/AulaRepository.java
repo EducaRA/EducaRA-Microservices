@@ -1,4 +1,4 @@
-package com.educara.api.repository;
+package com.educara.api.model.aula;
 
 import com.educara.api.model.aula.Aula;
 import org.springframework.data.domain.Page;

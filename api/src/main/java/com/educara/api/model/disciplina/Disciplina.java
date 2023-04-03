@@ -21,24 +21,6 @@ public class Disciplina {
     private String imagem;
     private Boolean ativo;
 
-    public Disciplina(DadosCadastroDisciplina dados) {
-        this.ativo = Boolean.TRUE;
-        this.nome = dados.nome();
-        this.sigla = dados.sigla();
-        this.imagem = dados.imagem();
-    }
-
-    public void atualizarInformacoes(DadosAtualizacaoDisciplina dados) {
-        this.id = dados.id();
-        if (dados.nome() != null) {
-            this.nome = dados.nome();
-        }
-        if (dados.sigla() != null) {
-            this.nome = dados.imagem();
-        }
-
-    }
-
     public void excluir() {
         this.ativo = false;
     }

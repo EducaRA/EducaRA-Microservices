@@ -1,4 +1,4 @@
-package com.educara.api.repository;
+package com.educara.api.model.objetoEducacional;
 
 import com.educara.api.model.objetoEducacional.ObjetoEducacional;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
 package com.educara.api.controller;
 
-import com.educara.api.model.usuario.DadosAutenticacao;
+import com.educara.api.model.usuario.LoginDto;
 import com.educara.api.model.usuario.Usuario;
 import com.educara.api.infra.security.DadosTokenJWT;
 import com.educara.api.infra.security.TokenService;
@@ -25,7 +25,7 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+    public ResponseEntity efetuarLogin(@RequestBody @Valid LoginDto dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
         var authentication = manager.authenticate(authenticationToken);
 

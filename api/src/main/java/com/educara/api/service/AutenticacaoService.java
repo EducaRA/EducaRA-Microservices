@@ -1,6 +1,6 @@
 package com.educara.api.service;
 
-import com.educara.api.repository.UsuarioRepository;
+import com.educara.api.model.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

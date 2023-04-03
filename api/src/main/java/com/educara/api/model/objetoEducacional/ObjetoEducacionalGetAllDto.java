@@ -1,9 +1,8 @@
 package com.educara.api.model.objetoEducacional;
 
-
 import java.math.BigDecimal;
 
-public record DadosDetalhamentoObjetoEducacional(
+public record ObjetoEducacionalGetAllDto(
         Long id,
         String nome,
         String descricao,
@@ -15,7 +14,7 @@ public record DadosDetalhamentoObjetoEducacional(
         String extension
 ) {
 
-    public DadosDetalhamentoObjetoEducacional(ObjetoEducacional objetoEducacional) {
+    public ObjetoEducacionalGetAllDto(ObjetoEducacional objetoEducacional) {
         this(objetoEducacional.getId(),
                 objetoEducacional.getNome(),
                 objetoEducacional.getDescricao(),

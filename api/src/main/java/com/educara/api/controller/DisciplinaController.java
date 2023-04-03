@@ -1,7 +1,7 @@
 package com.educara.api.controller;
 
 import com.educara.api.model.disciplina.*;
-import com.educara.api.repository.DisciplinaRepository;
+import com.educara.api.model.disciplina.DisciplinaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/disciplinas")
 public class DisciplinaController {
@@ -18,30 +20,35 @@ public class DisciplinaController {
     @Autowired
     private DisciplinaRepository repository;
 
+    @Autowired
+    private DisciplinaMapper mapper;
+
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroDisciplina dados, UriComponentsBuilder uriBuilder) {
-        var disciplina = new Disciplina(dados);
+    public ResponseEntity cadastrar(@RequestBody @Valid DisciplinaCreateDto dto, UriComponentsBuilder uriBuilder) {
+        var disciplina = mapper.toEntity(dto);
         repository.save(disciplina);
 
         var uri = uriBuilder.path("/disciplinas/{id}").buildAndExpand(disciplina.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDisciplina(disciplina));
+        return ResponseEntity.created(uri).body(mapper.toGetOneDto(disciplina));
     }
 
     @GetMapping
     public ResponseEntity listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-            var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemDisciplina::new);
+            var page = repository.findAllByAtivoTrue(paginacao).map(mapper::toGetAllDto);
             return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoDisciplina dados) {
-        var disciplina = repository.getReferenceById(dados.id());
-        disciplina.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(disciplina));
+    public ResponseEntity atualizar(@RequestBody @Valid DisciplinaUpdateDto dados) {
+        var optional = repository.findById(dados.id());
+        if(optional.isEmpty())
+            return ResponseEntity.notFound().build();
+        var disciplina = optional.get();
+        disciplina = mapper.toEntity(dados);
+        return ResponseEntity.ok(mapper.toGetOneDto(disciplina));
     }
 
     @DeleteMapping("/{id}")
@@ -56,7 +63,7 @@ public class DisciplinaController {
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var disciplina = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoDisciplina(disciplina));
+        return ResponseEntity.ok(mapper.toGetOneDto(disciplina));
     }
 
 

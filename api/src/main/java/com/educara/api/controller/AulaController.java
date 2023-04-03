@@ -1,8 +1,8 @@
 package com.educara.api.controller;
 
-import com.educara.api.model.aula.DadosDetalhamentoAula;
-import com.educara.api.model.aula.DadosListagemAula;
-import com.educara.api.repository.AulaRepository;
+import com.educara.api.model.aula.AulaGetOneDto;
+import com.educara.api.model.aula.AulaGetAllDto;
+import com.educara.api.model.aula.AulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,15 +20,15 @@ public class AulaController {
     private AulaRepository repository;
 
     @GetMapping
-    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-            var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAula::new);
+    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"descricao"}) Pageable paginacao) {
+            var page = repository.findAllByAtivoTrue(paginacao).map(AulaGetAllDto::new);
             return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var aula = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoAula(aula));
+        return ResponseEntity.ok(new AulaGetOneDto(aula));
     }
 
 
