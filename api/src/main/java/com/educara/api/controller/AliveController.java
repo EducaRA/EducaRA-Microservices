@@ -1,8 +1,8 @@
 package com.educara.api.controller;
 
-import com.educara.api.model.aula.AulaRepository;
-import com.educara.api.model.disciplina.DisciplinaRepository;
-import com.educara.api.model.objetoEducacional.ObjetoEducacionalRepository;
+import com.educara.api.repository.AulaRepository;
+import com.educara.api.repository.DisciplinaRepository;
+import com.educara.api.repository.ObjetoEducacionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package com.educara.api.infra.security;
 
-import com.educara.api.model.usuario.UsuarioRepository;
+import com.educara.api.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

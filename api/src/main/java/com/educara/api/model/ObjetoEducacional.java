@@ -1,6 +1,6 @@
-package com.educara.api.model.objetoEducacional;
+package com.educara.api.model;
 
-import com.educara.api.model.aula.Aula;
+import com.educara.api.model.Aula;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

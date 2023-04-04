@@ -1,17 +1,19 @@
 package com.educara.api.controller;
 
-import com.educara.api.model.disciplina.*;
-import com.educara.api.model.disciplina.DisciplinaRepository;
+import com.educara.api.model.Disciplina;
+import com.educara.api.repository.DisciplinaRepository;
+import com.educara.api.model.dto.disciplina.DisciplinaCreateDto;
+import com.educara.api.model.dto.disciplina.DisciplinaUpdateDto;
+import com.educara.api.model.mapper.DisciplinaMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/disciplinas")
@@ -22,6 +24,18 @@ public class DisciplinaController {
 
     @Autowired
     private DisciplinaMapper mapper;
+
+
+    @GetMapping
+    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        try {
+            var page = repository.findAllByAtivoTrue(paginacao).map(mapper::toGetAllDto);
+            return ResponseEntity.ok(page);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
 
     @PostMapping
     @Transactional
@@ -34,21 +48,16 @@ public class DisciplinaController {
         return ResponseEntity.created(uri).body(mapper.toGetOneDto(disciplina));
     }
 
-    @GetMapping
-    public ResponseEntity listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-            var page = repository.findAllByAtivoTrue(paginacao).map(mapper::toGetAllDto);
-            return ResponseEntity.ok(page);
-    }
-
-    @PutMapping
+    @PutMapping(path = {"/{id}"})
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DisciplinaUpdateDto dados) {
-        var optional = repository.findById(dados.id());
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody @Valid DisciplinaUpdateDto dados) {
+        var optional = repository.findById(id);
         if(optional.isEmpty())
             return ResponseEntity.notFound().build();
         var disciplina = optional.get();
-        disciplina = mapper.toEntity(dados);
-        return ResponseEntity.ok(mapper.toGetOneDto(disciplina));
+        Disciplina record = mapper.toEntity(dados);
+        repository.save(record);
+        return ResponseEntity.ok(mapper.toGetOneDto(record));
     }
 
     @DeleteMapping("/{id}")
@@ -62,8 +71,10 @@ public class DisciplinaController {
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var disciplina = repository.getReferenceById(id);
-        return ResponseEntity.ok(mapper.toGetOneDto(disciplina));
+        var optionalDisciplina = repository.findById(id);
+        if(optionalDisciplina.isEmpty())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(mapper.toGetOneDto(optionalDisciplina.get()));
     }
 
 

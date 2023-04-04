@@ -1,6 +1,6 @@
-package com.educara.api.model.aula;
+package com.educara.api.repository;
 
-import com.educara.api.model.aula.Aula;
+import com.educara.api.model.Aula;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

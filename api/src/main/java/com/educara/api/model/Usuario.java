@@ -1,4 +1,4 @@
-package com.educara.api.model.usuario;
+package com.educara.api.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
