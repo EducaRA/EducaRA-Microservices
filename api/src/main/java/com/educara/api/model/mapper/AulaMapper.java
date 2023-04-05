@@ -8,11 +8,12 @@ import com.educara.api.model.dto.aula.AulaUpdateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(uses = {ObjetoEducacionalMapper.class})
 public interface AulaMapper {
 
     Aula toEntity(AulaCreateDto dto);
     Aula toEntity(AulaUpdateDto dto);
+
     AulaGetOneDto toGetOneDto(Aula aula);
 
     @Mapping(target = "quantidadeObjetos", expression = "java(aula.getObjetos().size())")
