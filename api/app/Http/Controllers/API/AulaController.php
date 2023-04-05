@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Aula;
 use Validator;
-use App\Http\Resources\AulaResource;
-use App\Http\Resources\AulaResourceMobile;
+use Illuminate\Http\Response;
 
 class AulaController extends BaseController
 {
@@ -18,8 +17,8 @@ class AulaController extends BaseController
      */
     public function index()
     {
-        $aulas = Aula::all();
-        return $this->sendResponse(AulaResource::collection($aulas), 'Aulas retrieved successfully.');
+        $aulas = Aula::paginate(10);
+        return response(content: $aulas, status: Response::HTTP_OK);
     }
     /**
      * Store a newly created resource in storage.
@@ -37,12 +36,12 @@ class AulaController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return response(content: $validator->errors(),status: Response::HTTP_BAD_REQUEST);
         }
 
         $aula = Aula::create($input);
 
-        return $this->sendResponse(new AulaResource($aula), 'Aula created successfully.');
+        return response()->json($aula, Response::HTTP_CREATED);
     }
 
     /**
@@ -56,10 +55,10 @@ class AulaController extends BaseController
         $aula = Aula::find($id);
 
         if (is_null($aula)) {
-            return $this->sendError('Aula not found.');
+            return response(status: Response::HTTP_NOT_FOUND);
         }
 
-        return $this->sendResponse(new AulaResource($aula), 'Aula retrieved successfully.');
+        return response(content: $aula, status: Response::HTTP_OK);
     }
 
     /**
@@ -79,7 +78,7 @@ class AulaController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return response(content: $validator->errors(), status: Response::HTTP_BAD_REQUEST);
         }
 
         $aula->code = $input['code'];
@@ -87,7 +86,7 @@ class AulaController extends BaseController
         $aula->name = $input['name'];
         $aula->save();
 
-        return $this->sendResponse(new AulaResource($aula), 'Aula updated successfully.');
+         return response(content:$aula, status:Response::HTTP_OK);
     }
 
     /**
@@ -100,7 +99,7 @@ class AulaController extends BaseController
     {
         $aula->delete();
 
-        return $this->sendResponse([], 'Aula deleted successfully.');
+        return response(status:Response::HTTP_NO_CONTENT);
     }
 
     //Mobile
@@ -109,14 +108,23 @@ class AulaController extends BaseController
     {
         
         if (is_null($codigo)) {
-            return $this->sendError('Codigo da sala não informado');
+            return response(content: 'Codigo da sala não informado', status: Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!$this->_is_valid_uuid($codigo)) {
+            return response(content: 'Codigo da sala Inválido', status: Response::HTTP_BAD_REQUEST);
         }
 
         $aula = Aula::where('codigo', $codigo)->with('objetos3d')->get();
 
         if (is_null($aula)) {
-            return $this->sendError('Aula not found.');
+            return response(status: Response::HTTP_NOT_FOUND);
         }
-        return $this->sendResponse(AulaResourceMobile::collection($aula), 'Aula obtida com sucesso');
+        return response(content: $aula, status:Response::HTTP_OK);
+    }
+
+    private function _is_valid_uuid($uuid) {
+        $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i';
+        return preg_match($pattern, $uuid) === 1;
     }
 }
