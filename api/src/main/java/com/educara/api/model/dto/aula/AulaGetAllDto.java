@@ -13,4 +13,5 @@ public class AulaGetAllDto implements Serializable {
     private String codigo;
     private String observacao;
     private String turma;
+    private Integer quantidadeObjetos;
 }

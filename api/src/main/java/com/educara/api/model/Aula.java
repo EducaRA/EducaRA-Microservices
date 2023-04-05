@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Table(name = "aulas")
 @Entity(name = "Aula")
 @Getter
@@ -29,6 +31,9 @@ public class Aula {
     @ManyToOne
     @JoinColumn(name = "fk_disciplina_id", referencedColumnName = "id")
     private Disciplina disciplina;
+
+    @OneToMany(mappedBy = "aula")
+    private List<ObjetoEducacional> objetos;
 
 
 }
