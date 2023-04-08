@@ -20,17 +20,17 @@ public class ObjetoEducacional {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private UUID codigo;
     private String nome;
     private String descricao;
-    private UUID codigo;
     private String imagem;
     private BigDecimal escala;
     @Column(name = "filehash_md5")
     private String filehashMd5;
-    private String path;
-    @Column(name = "size_megabyte")
-    private Integer size;
-    private String extension;
+    private String caminho;
+    @Column(name = "tamanho_megabyte")
+    private Integer tamanhoMegabyte;
+    private String extensao;
     private Boolean ativo;
 
     @ManyToOne

@@ -14,7 +14,7 @@ public class ObjetoEducacionalGetAllDto implements Serializable {
         private String imagem;
         private BigDecimal escala;
         private String filehashMd5;
-        private String path;
-        private Integer size;
-        private String extension;
+        private String caminho;
+        private Integer tamanhoMegabyte;
+        private String extensao;
 }

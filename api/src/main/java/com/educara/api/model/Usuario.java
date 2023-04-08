@@ -30,6 +30,7 @@ public class Usuario implements UserDetails {
     @Column(name = "senha")
     private String senha;
     private UUID codigo;
+    private Boolean ativo;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
