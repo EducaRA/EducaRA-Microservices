@@ -28,11 +28,13 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    volumes:
+      - "./api/target:/app"
     environment:
-          - SPRING_DATASOURCE_URL=${DATABASE_JDBC_URL}:${DATABASE_PORT}/${DATABASE_NAME}
-          - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
-          - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
-          - JWT_SECRET=${JWT_SECRET}
+      - SPRING_DATASOURCE_URL=${DATABASE_JDBC_URL}:${DATABASE_PORT}/${DATABASE_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
     ports:
       - "8001:8080"
     depends_on:
