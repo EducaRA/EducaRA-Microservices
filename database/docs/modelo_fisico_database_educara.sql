@@ -8,9 +8,12 @@ CREATE TABLE usuarios (
 
 CREATE TABLE disciplinas (
     id BIGSERIAL PRIMARY KEY,
+    codigo UUID,
     nome VARCHAR(30),
     sigla VARCHAR(5),
-    imagem VARCHAR(300)
+    imagem VARCHAR(300),
+    fk_usuario_id BIGINT,
+    FOREIGN KEY (fk_usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
 );
 
 CREATE TABLE aulas (
@@ -20,9 +23,7 @@ CREATE TABLE aulas (
     observacao VARCHAR(300),
     codigo UUID,
     fk_disciplina_id BIGINT,
-    fk_usuario_id BIGINT,
-    FOREIGN KEY (fk_disciplina_id) REFERENCES disciplinas (id) ON DELETE CASCADE,
-    FOREIGN KEY (fk_usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+    FOREIGN KEY (fk_disciplina_id) REFERENCES disciplinas (id) ON DELETE CASCADE
 );
 
 CREATE TABLE objetos_educacionais (

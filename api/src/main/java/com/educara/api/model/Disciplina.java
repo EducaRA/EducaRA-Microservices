@@ -24,6 +24,9 @@ public class Disciplina implements Serializable {
     private UUID codigo;
     private String imagem;
     private Boolean ativo;
+    @ManyToOne
+    @JoinColumn(name = "fk_professor_id", referencedColumnName = "id")
+    private Usuario professor;
 
     public void excluir() {
         this.ativo = false;

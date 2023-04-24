@@ -11,8 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.UUID;
 
 public interface AulaRepository extends JpaRepository<Aula, Long> {
-    Page<Aula> findAllByAtivoTrue(Pageable paginacao);
-    @Query("SELECT a FROM Aula a WHERE a.professor.email = :email")
+    @Query("SELECT a FROM Aula a WHERE a.disciplina.professor.email = :email AND a.ativo = true")
     Page<Aula> findAllByAtivoTrueAndProfessor(Pageable paginacao, @Param("email") String emailProfessor);
 
     @Query("SELECT a FROM Aula a WHERE a.codigo = :uuid")

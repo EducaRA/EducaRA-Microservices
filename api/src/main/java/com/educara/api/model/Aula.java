@@ -26,10 +26,6 @@ public class Aula {
     private Boolean ativo;
 
     @ManyToOne
-    @JoinColumn(name = "fk_professor_id", referencedColumnName = "id")
-    private Usuario professor;
-
-    @ManyToOne
     @JoinColumn(name = "fk_disciplina_id", referencedColumnName = "id")
     private Disciplina disciplina;
 
