@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+# Serviço Web do Nginx
+  web:
+    container_name: web
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - '8000:80'
+    volumes:
+      - './web/html:/usr/share/nginx/html'
+  # Serviço do PostgreSQL
+  database:
+    container_name: database
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - ./database/pgdata:/var/lib/postgresql/data
+    ports:
+      - "8002:5432"
+  # Serviço do PHP
+  # O host 'database' se refere ao nome do servico do banco de dados, descrito acima
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+          - DATASOURCE_URL=${DATABASE_HOST}/${DATABASE_NAME}
+          - DATASOURCE_USERNAME=${DATABASE_USERNAME}
+          - DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+          - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "8001:8080"
+    depends_on:
+      - database
