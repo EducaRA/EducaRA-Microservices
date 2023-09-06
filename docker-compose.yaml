@@ -11,7 +11,8 @@ services:
       - '8000:80'
     volumes:
       - './web/html:/usr/share/nginx/html'
-  # Serviço do PostgreSQL
+
+# Serviço do PostgreSQL
   database:
     container_name: database
     image: postgres
@@ -22,8 +23,9 @@ services:
     volumes:
       - ./database/pgdata:/var/lib/postgresql/data
     ports:
-      - "8002:5432"
-  # Serviço do PHP
+      - "${DATABASE_PORT}:5432"
+
+  # Serviço do Laravel
   # O host 'database' se refere ao nome do servico do banco de dados, descrito acima
   api:
     container_name: api
@@ -31,11 +33,18 @@ services:
       context: ./api
       dockerfile: Dockerfile
     environment:
-          - DATASOURCE_URL=${DATABASE_HOST}/${DATABASE_NAME}
-          - DATASOURCE_USERNAME=${DATABASE_USERNAME}
-          - DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+          - DB_HOST=database
+          - DB_USERNAME=${DATABASE_USERNAME}
+          - DB_PASSWORD=${DATABASE_PASSWORD}
+          - DB_PORT=5432
+          - DB_DATABASE=${DATABASE_NAME}
           - JWT_SECRET=${JWT_SECRET}
-    ports:
-      - "8001:8080"
+          - COMPOSER_HOME=/composer
+          - COMPOSER_ALLOW_SUPERUSER=1
+          - APP_ENV=local
+          - APP_KEY=${APP_KEY}
+    volumes:
+      - ./api:/var/www/application
+    working_dir: /var/www
     depends_on:
       - database
