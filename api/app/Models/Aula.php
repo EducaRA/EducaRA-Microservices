@@ -22,7 +22,6 @@ class Aula extends Model
         static::creating(fn (Aula $aula) => $aula->codigo = (string) Uuid::uuid4());
     }
 
-    //Muitas salas pertencem a um ou muitos objetos (N,N)
     public function objetos3d()
     {
         return $this->hasMany(Objeto3d::class);

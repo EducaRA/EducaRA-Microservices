@@ -19,5 +19,10 @@ class Objeto3d extends Model
     {
         static::creating(fn (Objeto3d $objeto3d) => $objeto3d->codigo = (string) Uuid::uuid4());
     }
+
+    public function aula(): BelongsTo
+    {
+        return $this->belongsTo(Aula::class);
+    }
     
 }
