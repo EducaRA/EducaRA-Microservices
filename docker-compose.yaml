@@ -20,8 +20,8 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-    volumes:
-      - ./database/pgdata:/var/lib/postgresql/data
+    # volumes:
+    #   - ./database/pgdata:/var/lib/postgresql/data
     ports:
       - "${DATABASE_PORT}:5432"
 
