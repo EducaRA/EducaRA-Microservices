@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DisciplinaResource extends JsonResource
+class Objeto3dResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +14,16 @@ class DisciplinaResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // $aula = new AulaResource
         return [
             'id' => $this->id,
             'nome' => $this->nome,
-            'sigla' => $this->sigla,
+            'descricao' => $this->descricao,
             'imagem' => $this->imagem,
-            'aulas' => AulaResource::collection($this->whenLoaded('aulas')),
+            'filehash' => $this->filehash,
+            'objeto' => $this->path,
+            'extension'=> $this->extension,
+            'size' => $this->size,
+            'escala' => $this->escala,
             'created_at' => $this->created_at->format('Y-m-d\TH:m:s\Z'),
             'updated_at' => $this->updated_at->format('Y-m-d\TH:m:s\Z'),
         ];

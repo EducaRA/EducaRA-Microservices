@@ -17,9 +17,10 @@ class DisciplinaController extends BaseController
      */
     public function index()
     {
-        $disciplinas = Disciplina::all();
+        $disciplinas = Disciplina::with(['aulas.objetos3d'])
+                        ->get();
       
-        return $this->sendResponse(DisciplinaResource::collection($disciplinas), 'Disciplinas retrieved successfully.');
+        return $this->sendResponse(DisciplinaResource::collection($disciplinas), 'Disciplinas retrieved successfully.', 'disciplinas');
     }
     /**
      * Store a newly created resource in storage.

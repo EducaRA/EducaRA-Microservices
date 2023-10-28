@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
 
          \App\Models\Aula::factory(7)->create();
 
-         \App\Models\Objeto3d::factory(400)->create();
+         \App\Models\Objeto3d::factory(6)->create();
     }
 }

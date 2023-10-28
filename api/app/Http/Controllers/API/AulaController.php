@@ -7,18 +7,20 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Aula;
 use Validator;
 use Illuminate\Http\Response;
+use App\Http\Resources\AulaResource;
 
 class AulaController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\AulaResource
      */
     public function index()
     {
-        $aulas = Aula::paginate(10);
-        return response(content: $aulas, status: Response::HTTP_OK);
+        $aulas = Aula::all();
+        
+        return $this->sendResponse(AulaResource::collection($aulas), 'Aulas retrieved successfully.', 'aulas');
     }
     /**
      * Store a newly created resource in storage.
@@ -126,5 +128,15 @@ class AulaController extends BaseController
     private function _is_valid_uuid($uuid) {
         $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i';
         return preg_match($pattern, $uuid) === 1;
+    }
+
+    public function getAllAulas()
+    {
+        $aula = Aula::all()->with('objetos3d')->get();
+
+        if (is_null($aula)) {
+            return response(status: Response::HTTP_NOT_FOUND);
+        }
+        return response(content: $aula, status:Response::HTTP_OK);
     }
 }

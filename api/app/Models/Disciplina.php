@@ -10,6 +10,11 @@ class Disciplina extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sigla', 'nome', "imagem" 
+        'sigla', 'nome', 'imagem' 
     ];
+
+    public function aulas()
+    {
+        return $this->hasMany(Aula::class);
+    }
 }
