@@ -20,3 +20,14 @@ docker-compose up
 ```
 
 Na raiz do projeto
+
+Para rebuild das tabelas do bando e recriar a seed (em caso de não funcionar):
+```
+php artisan migrate:fresh --seed
+```
+Outra forma de fazer:
+
+```
+php artisan migrate:fresh
+php artisan db:seed
+```
