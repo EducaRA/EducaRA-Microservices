@@ -16,7 +16,7 @@ Para a geração do JWT_SECRET execute `php artisan jwt:secret` e coloque em .en
 Para iniciá-los execute:
 
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 Na raiz do projeto
