@@ -24,8 +24,8 @@ class Objeto3dFactory extends Factory
             'imagem' => $this->faker->randomElement(['2022.1', '2022.2', '2022.3', '2022.4', '2022.4', 'FIS']),
             'escala' => $this->faker->randomFloat(3, 0, 50),
             'aula_id' => Aula::inRandomOrder()->first()->id,
-            'extension' => $this->faker->randomElement(['glb', 'gltf']),
-            'path' => 'http:://localhost:8002/acido-etanoico.glb'
+            'extension' => 'zip',
+            'path' => 'http:://localhost:8002/acido-etanoico.zip'
         ];
     }
 }

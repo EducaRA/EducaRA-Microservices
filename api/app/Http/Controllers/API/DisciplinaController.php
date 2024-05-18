@@ -54,7 +54,7 @@ class DisciplinaController extends BaseController
      */
     public function show($id)
     {
-        $disciplina = Disciplina::find($id);
+        $disciplina = Disciplina::with('aulas.objetos3d')->find($id);
     
         if (is_null($disciplina)) {
             return $this->sendError('Disciplina not found.');
@@ -62,7 +62,7 @@ class DisciplinaController extends BaseController
      
         return $this->sendResponse(new DisciplinaResource($disciplina), 'Disciplina retrieved successfully.');
     }
-    
+
     /**
      * Update the specified resource in storage.
      *

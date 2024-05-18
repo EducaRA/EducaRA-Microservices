@@ -61,7 +61,8 @@ Route::middleware('api')->group(function () {
  Route::prefix('mobile')->group(function () {
 
     Route::get('/aulas',[AulaController::class, 'getAllAulas'])->name('mobile.aulas.index');
-    Route::get('/aulas/{codigo}',[AulaController::class, 'getAula'])->name('mobile.aulas.show');
+    //Route::get('/aulas/{codigo}',[AulaController::class, 'getAula'])->name('mobile.aulas.show');
+    Route::get('/aulas/{codigo}',[AulaController::class, 'getAulas'])->name('mobile.disciplinas.aulas.show');
     Route::get('/objetos3d/{codigo}', [Objeto3dController::class, 'getObjeto3d'])->name('mobile.objetos3d.show');
     Route::get('/objetos3d/{codigo}/download', [Objeto3dController::class, 'downloadObjeto3d'])->name('mobile.objetos3d.download');
  

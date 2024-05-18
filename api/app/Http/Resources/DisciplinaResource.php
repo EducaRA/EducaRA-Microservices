@@ -17,6 +17,7 @@ class DisciplinaResource extends JsonResource
         // $aula = new AulaResource
         return [
             'id' => $this->id,
+            'codigo' => $this->codigo,
             'nome' => $this->nome,
             'sigla' => $this->sigla,
             'imagem' => $this->imagem,

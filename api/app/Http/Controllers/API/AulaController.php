@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
+use App\Models\Disciplina;
 use App\Models\Aula;
 use Validator;
 use Illuminate\Http\Response;
@@ -130,13 +131,37 @@ class AulaController extends BaseController
         return preg_match($pattern, $uuid) === 1;
     }
 
+
+    public function getAulas($id)
+    {
+        // Primeiro, encontre a disciplina pelo código
+        $disciplina = Disciplina::find($id);
+
+        if (is_null($disciplina)) {
+            return response()->json(['message' => 'Disciplina não encontrada.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Encontre todas as aulas que pertencem a essa disciplina
+        $aulas = Aula::where('disciplina_id', $disciplina->id)
+                    ->with('objetos3d')
+                    ->get();
+
+        if ($aulas->isEmpty()) {
+            return response()->json(['message' => 'Nenhuma aula encontrada para esta disciplina.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['success' => true, 'data' => $aulas], Response::HTTP_OK);
+    }
+
+
     public function getAllAulas()
     {
-        $aula = Aula::all()->with('objetos3d')->get();
+        $aulas = Aula::with('objetos3d')->get();
 
-        if (is_null($aula)) {
+        if (is_null($aulas)) {
             return response(status: Response::HTTP_NOT_FOUND);
         }
-        return response(content: $aula, status:Response::HTTP_OK);
+
+        return $this->sendResponse(AulaResource::collection($aulas), 'Aulas retrieved successfully.', 'aulas');
     }
 }

@@ -41,9 +41,7 @@ COPY composer.json composer.json
 
 RUN composer install --no-dev --no-scripts --no-autoloader
 
-RUN composer dump-autoload --optimize
-
-COPY .env.example .env
+# COPY .env.example .env
 
 #RUN php artisan migrate:fresh --seed
 
