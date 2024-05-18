@@ -1,0 +1,70 @@
+{
+    "versao": "1.1",
+    "disciplinas": [
+        {
+            "id": 1,
+            "nome": "disciplina 1",
+            "detalhes": "detalhes da disciplina 1",
+            "aulas": [
+                {
+                    "id": 1,
+                    "nome": "aula 1",
+                    "detalhes": "detalhes da aula 1",
+                    "conteudos": [
+                        {
+                            "id": 1,
+                            "nome": "conteudo 1",
+                            "detalhes": "detalhes do conteúdo 1",
+                            "objeto": "objeto1.zip"
+                        },
+                        {
+                            "id": 2,
+                            "nome": "conteudo 2",
+                            "detalhes": "detalhes do conteúdo 2",
+                            "objeto": "objeto1.zip"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nome": "aula 2",
+                    "detalhes": "detalhes da aula 2",
+                    "conteudos": [
+                        {
+                            "id": 3,
+                            "nome": "conteudo 3",
+                            "detalhes": "detalhes do conteúdo 3",
+                            "objeto": "objeto1.zip"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "nome": "disciplina 2",
+            "detalhes": "detalhes da disciplina 2",
+            "aulas": [
+                {
+                    "id": 3,
+                    "nome": "aula 3",
+                    "detalhes": "detalhes da aula 3",
+                    "conteudos": [
+                        {
+                            "id": 4,
+                            "nome": "conteudo 4",
+                            "detalhes": "detalhes do conteúdo 4",
+                            "objeto": "objeto2.zip"
+                        },
+                        {
+                            "id": 5,
+                            "nome": "conteudo 5",
+                            "detalhes": "detalhes do conteúdo 5",
+                            "objeto": "objeto2.zip"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
