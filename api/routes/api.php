@@ -58,13 +58,22 @@ Route::middleware('api')->group(function () {
  
  //API ROUTES FOR APP MOBILE
  
- Route::prefix('mobile')->group(function () {
+ Route::prefix('v1')->group(function () {
 
-    Route::get('/aulas',[AulaController::class, 'getAllAulas'])->name('mobile.aulas.index');
-    //Route::get('/aulas/{codigo}',[AulaController::class, 'getAula'])->name('mobile.aulas.show');
-    Route::get('/aulas/{codigo}',[AulaController::class, 'getAulas'])->name('mobile.disciplinas.aulas.show');
-    Route::get('/objetos3d/{codigo}', [Objeto3dController::class, 'getObjeto3d'])->name('mobile.objetos3d.show');
-    Route::get('/objetos3d/{codigo}/download', [Objeto3dController::class, 'downloadObjeto3d'])->name('mobile.objetos3d.download');
+    Route::get('/aulas',[AulaController::class, 'getAllAulas'])->name('v1.aulas.index');
+    Route::get('/aulas/{codigo}',[AulaController::class, 'getAula'])->name('v1.aulas.show');
+    Route::get('/objetos3d/{codigo}', [Objeto3dController::class, 'getObjeto3d'])->name('v1.objetos3d.show');
+    Route::get('/objetos3d/{codigo}/download', [Objeto3dController::class, 'downloadObjeto3d'])->name('v1.objetos3d.download');
+ 
+ });
+
+
+ Route::prefix('v2')->group(function () {
+
+    Route::get('/aulas',[AulaController::class, 'getAllAulas'])->name('v2.aulas.index');
+    Route::get('/aulas/{codigo}',[AulaController::class, 'getAulas'])->name('v2.disciplinas.aulas.show');
+    Route::get('/objetos3d/{codigo}', [Objeto3dController::class, 'getObjeto3d'])->name('v2.objetos3d.show');
+    Route::get('/objetos3d/{codigo}/download', [Objeto3dController::class, 'downloadObjeto3d'])->name('v2.objetos3d.download');
  
  });
 
