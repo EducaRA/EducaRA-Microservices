@@ -49,7 +49,7 @@ Route::middleware('api')->group(function () {
     Route::apiResources([
        'disciplinas' => DisciplinaController::class,
        'objetos3d' => Objeto3dController::class,
-       'aulas' => AulaController::class,
+       //'aulas' => AulaController::class,
     ]);
  
     Route::get('objetos3d/{objeto_3d}/download', [Objeto3dController::class, 'download'])->name('objetos3d.download');
@@ -69,10 +69,11 @@ Route::middleware('api')->group(function () {
 
 
  Route::prefix('v2')->group(function () {
-
+    
+    Route::get('/disciplinas',[DisciplinaController::class, 'index']);
     Route::get('/aulas',[AulaController::class, 'getAllAulas'])->name('v2.aulas.index');
-    Route::get('/aulas/{codigo}',[AulaController::class, 'getAulas'])->name('v2.disciplinas.aulas.show');
-    Route::get('/objetos3d/{codigo}', [Objeto3dController::class, 'getObjeto3d'])->name('v2.objetos3d.show');
+    Route::get('/aulas/{disciplina_id}',[AulaController::class, 'getAulas'])->name('v2.disciplinas.aulas.show');
+    Route::get('/conteudos/{aula_id}', [Objeto3dController::class, 'getConteudos'])->name('v2.conteudos.show');
     Route::get('/objetos3d/{codigo}/download', [Objeto3dController::class, 'downloadObjeto3d'])->name('v2.objetos3d.download');
  
  });

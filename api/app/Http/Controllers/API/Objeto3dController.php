@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Models\Objeto3d;
+use App\Models\{Objeto3d, Aula};
 use Validator;
 use App\Http\Resources\Objeto3dResource;
 use Illuminate\Support\Facades\File;
@@ -160,6 +160,27 @@ class Objeto3dController extends BaseController
         }
 
         return $this->sendResponse(Objeto3dResource::collection($objeto3d), 'Objeto 3D obtido com sucesso');
+    }
+
+    public function getConteudos($aulaId)
+    {
+
+        // Primeiro, encontre a disciplina pelo código
+        $aula = Aula::find($aulaId);
+
+        if (is_null($aula)) {
+            return response()->json(['message' => 'Aula não encontrada.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Encontre todas as aulas que pertencem a essa disciplina
+        $conteudos = Objeto3d::where('aula_id', $aula->id)
+                    ->get();
+
+        if ($conteudos->isEmpty()) {
+            return response()->json(['message' => 'Nenhuma aula encontrada para esta disciplina.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->sendResponse(Objeto3dResource::collection($conteudos), 'Conteudos retrieved successfully.', 'conteudos');
     }
 
     public function downloadObjeto3d($codigo)

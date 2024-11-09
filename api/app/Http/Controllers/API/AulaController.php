@@ -132,6 +132,7 @@ class AulaController extends BaseController
     }
 
 
+    // Método para chamar aula com os conteúdos
     public function getAulas($id)
     {
         // Primeiro, encontre a disciplina pelo código
@@ -150,7 +151,7 @@ class AulaController extends BaseController
             return response()->json(['message' => 'Nenhuma aula encontrada para esta disciplina.'], Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['success' => true, 'data' => $aulas], Response::HTTP_OK);
+        return $this->sendResponse(AulaResource::collection($aulas), 'Aulas retrieved successfully.', 'aulas');
     }
 
 
